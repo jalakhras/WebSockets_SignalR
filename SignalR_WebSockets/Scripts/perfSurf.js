@@ -8,26 +8,26 @@
         model.addMessage(message);
     };
 
-    perfHub.client.newCounters = function (counters) {
-        model.addCounters(counters);
-    };
-
+  
+    //to save name Counters
     var ChartEntry = function (name) {
         var self = this;
 
         self.name = name;
+         //to Add  value to draw chart   Counters
         self.chart = new SmoothieChart({ millisPerPixel: 50, labels: { fontSize: 15 } });
         self.timeSeries = new TimeSeries();
         self.chart.addTimeSeries(self.timeSeries, { lineWidth: 3, strokeStyle: "#00ff00" });
 
     };
-
+    //to Add  value to draw chart   Counters
     ChartEntry.prototype = {
         addValue: function (value) {
             var self = this;
+            //Add  Time  to  chart
             self.timeSeries.append(new Date().getTime(), value);
         },
-
+        // Ues canvas into DOM
         start: function () {
             var self = this;
             self.canvas = document.getElementById(self.name);
@@ -38,12 +38,12 @@
     var Model = function () {
         var self = this;
         self.message = ko.observable(""),
-            self.messages = ko.observableArray()
-        self.counters = ko.observableArray()
+            self.messages = ko.observableArray();
+        self.counters = ko.observableArray();
     };
 
     Model.prototype = {
-
+        // add counter
         addCounters: function (updatedCounters) {
             var self = this;
 
@@ -80,5 +80,10 @@
     $(function () {
         ko.applyBindings(model);
     });
+
+    //counters to monitor performance 
+    perfHub.client.newCounters = function (counters) {
+        model.addCounters(counters);
+    };
 
 }());
