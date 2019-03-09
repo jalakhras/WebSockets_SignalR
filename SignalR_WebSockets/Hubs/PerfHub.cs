@@ -8,9 +8,11 @@ namespace SignalR_WebSockets.Hubs
 {
     public class PerfHub : Hub
     {
-        public void Hello()
+        public void Send(string message)
         {
-            Clients.All.hello("Hi");
+            Clients.All.newMessage(
+                Context.User.Identity.Name + " says " + message
+                );
         }
     }
 }
